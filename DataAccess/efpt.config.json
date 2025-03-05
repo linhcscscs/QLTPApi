@@ -1,0 +1,513 @@
+﻿{
+   "CodeGenerationMode": 5,
+   "ContextClassName": "QUAN_LY_THU_PHI_2025Context",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "ModelsRender",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "DataAccess",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[API]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[API_TOKENS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_BIEU_MAU_BC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_HOC_SINH_DK_KHOAN_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_HOC_SINH_KHOAN_THU_THANG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_HOC_SINH_MIEN_GIAM_KHOAN_THU_THANG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_LOG_GUI_BC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_MUC_THU_KHOAN_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_THU_PHI_KHOAN_THU_THANG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_TONG_HOP_HTCPHT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_TONG_HOP_KENH_THANH_TOAN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BCS_TONG_HOP_MIEN_GIAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CAP_MA_BIEN_LAI]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CAP_MA_HOC_SINH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CAP_MA_PHIEU_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CAU_HINH_API_CSDL]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CAU_HINH_API_TRUC_KN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CAU_HINH_PHIEU_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CAU_HINH_TEN_MIEN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CAU_HINH_TRUONG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CH_HS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DIEM_DANH_HS_NHOM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DIEM_DANH_KHOAN_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DIEM_DANH_KHOAN_THU_KY]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DIEM_DANH_KHOAN_THU_NAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DK_KHOAN_THU_SL_DG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DK_KHOAN_THU_TN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_CAP_DON_VI]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_CAP_HOC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_DAN_TOC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_DIEN_CHINH_thuphiCH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_DON_VI_CUNG_CAP]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_GIOI_TINH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_HINH_THUC_THANH_TOAN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_HUYEN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_KHOAN_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_KHOAN_THU_SO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_KHOAN_THU_SO_NHOM_DV]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_KHOI]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_KHU_VUC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_KIEU_LOP]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_LOAI_CAN_BO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_LOAI_HINH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_LOAI_KHOAN_THU_SO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_LOAI_KHUYET_TAT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_LOAI_TRUONG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_MIEN_GIAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_MIEN_GIAM_SO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_MUC_DAT_CHUAN_QG_CLGD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_NHOM_CAN_BO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_NHOM_KHOAN_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_NHOM_KHOAN_THU_SO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_NHOM_SO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_NHOM_SO_QH_AP_DUNG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_NHOM_TUOI_MN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_NUOC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_PHAN_BAN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_TINH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_TON_GIAO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_TRANG_THAI_HOC_SINH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DM_XA]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DOI_TAC_THANH_TOAN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DOT_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DOT_THU_DOI_TUONG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DOT_THU_KHOAN_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DOT_THU_TN_CHI_TIET]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DOT_THU_TN_DOI_TUONG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DOT_THU_TU_NGUYEN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GroupUser]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GroupUserMenu]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GroupUserPGD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GroupUserPGDMenuPGD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GroupUserSGD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GroupUserSGDMenuSGD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GUI_THONG_BAO_THU_TIEN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[HOA_DON_DIEN_TU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[HOC_SINH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[HOC_SINH_MIEN_GIAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[KHOA_DIEM_DANH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[KHOA_DIEM_DANH_KY]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[KHOA_DIEM_DANH_NAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[KHOAN_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[KHOAN_THU_DOI_TUONG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[KHOAN_THU_MIEN_GIAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LICH_SU_HOAN_TIEN_CONG_THANH_TOAN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LICH_SU_THANH_TOAN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LICH_SU_THU_TIEN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LICH_SU_THU_TIEN_CT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LOP]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MAP_MIEN_GIAM_HS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MAP_MIEN_GIAM_HS_SO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Menu]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MenuPGD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MenuSGD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NAM_HOC]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NGAY_HOC_THANG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NGAY_NGHI_TRONG_NAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NGAY_TRONG_NAM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NGUOI_DUNG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NHAN_SU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NHAN_SU_LOP_CHU_NHIEM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NHOM_DIEM_DANH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PHAN_QUYEN_API]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PHIEU_THU]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PHIEU_THU_CT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PHONG_BAN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PHONG_GD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[QUYEN_NGUOI_DUNG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SO_GD]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TAI_KHOAN_GUI_TIN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TAI_KHOAN_GUI_TIN_TRUC_KN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[THONG_BAO_DIEU_HANH]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[THONG_BAO_DOI_TUONG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TRUONG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TRUONG_DANG_KY_SU_DUNG]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TRUONG_DOI_TAC_THANH_TOAN]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[XEM_THONG_BAO]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseInternalAccessModifiersForSprocthuphindFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false
+}

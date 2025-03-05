@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35818.85 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLTPApi", "QLTPApi.csproj", "{D0D423CB-EA02-4207-9AC3-A4D41C76D1DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{A6104553-F6CF-455E-84BA-6DC02E5387F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0D423CB-EA02-4207-9AC3-A4D41C76D1DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0D423CB-EA02-4207-9AC3-A4D41C76D1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0D423CB-EA02-4207-9AC3-A4D41C76D1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0D423CB-EA02-4207-9AC3-A4D41C76D1DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6104553-F6CF-455E-84BA-6DC02E5387F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6104553-F6CF-455E-84BA-6DC02E5387F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6104553-F6CF-455E-84BA-6DC02E5387F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6104553-F6CF-455E-84BA-6DC02E5387F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {621D6ADB-5D69-4C93-8904-DAE8AF6B5EF8}
+	EndGlobalSection
+EndGlobal
