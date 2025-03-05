@@ -42,7 +42,6 @@ namespace DataAccess.Startup
 
         public void Configure(IApplicationBuilder app)
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "/MrRHgUXSHk=",
+  "dgSpecHash": "7g4tZ0Vf708=",
   "success": true,
   "projectFilePath": "C:\\Users\\linhl\\Desktop\\Projects\\BaseQLTPApi\\QLTPApi\\DataAccess\\DataAccess.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\linhl\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\linhl\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\linhl\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\linhl\\.nuget\\packages\\deepcloner\\0.10.4\\deepcloner.0.10.4.nupkg.sha512",

@@ -9,12 +9,10 @@ namespace DataAccess.Caching.Redis
 {
     public class RedisCacheProvider : ICacheProvider
     {
-        private IDistributedCache _cache;
         private IConnectionMultiplexer _connection;
         private IDatabase _database;
-        public RedisCacheProvider(IDistributedCache cache, IConnectionMultiplexer connection)
+        public RedisCacheProvider(IConnectionMultiplexer connection)
         {
-            _cache = cache;
             _connection = connection;
             _database = _connection.GetDatabase();
         }
@@ -24,12 +22,12 @@ namespace DataAccess.Caching.Redis
         }
         private T? DeserializeHandle<T>(string jsonObject)
         {
-            return JsonConvert.DeserializeObject<T>(jsonObject, new JsonSerializerSettings
+            return JsonConvert.DeserializeObject<T?>(jsonObject, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
         }
-        private string SerializeHandle<T>(T obj)
+        private string SerializeHandle<T>(T? obj)
         {
             return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
