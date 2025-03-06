@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Models;
+namespace DataAccess.SQL.QLTP.Models;
 
 [Index("ID_LSTT", "ID_HOC_SINH", Name = "IX_KEY", IsUnique = true)]
 [Index("MA_SO_GD", "MA_CAP_HOC", "MA_TRUONG", "NAM_TC", Name = "IX_MA_SO_GD_MA_CAP_HOC_MA_TRUONG_NAM_TC_ET")]

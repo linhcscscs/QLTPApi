@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Models;
+namespace DataAccess.SQL.QLTP.Models;
 
 [Index("GroupUserCode", "SoGDMA", "TruongMA", Name = "IX_KEY", IsUnique = true)]
 public partial class GroupUser

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Models;
+namespace DataAccess.SQL.QLTP.Models;
 
 [Index("ID_DOI_TAC_THANH_TOAN", "ID_TRUONG_DANG_KY_SU_DUNG", Name = "IX_TRUONG_DANG_KY_KENH_THANH_TOAN_UNIQUE", IsUnique = true)]
 public partial class TRUONG_DOI_TAC_THANH_TOAN

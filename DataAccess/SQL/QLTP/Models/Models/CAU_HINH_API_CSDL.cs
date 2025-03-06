@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Models;
+namespace DataAccess.SQL.QLTP.Models;
 
 [Index("MA_SO_GD", "MA_NAM_HOC", Name = "MA_SO_GD_MA_NAM_HOC", IsUnique = true)]
 public partial class CAU_HINH_API_CSDL

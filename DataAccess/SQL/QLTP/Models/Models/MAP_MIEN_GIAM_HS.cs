@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Models;
+namespace DataAccess.SQL.QLTP.Models;
 
 [Index("MA_SO_GD", "MA_TRUONG", "ID_DM_MIEN_GIAM", "ID_CH_HS", "GIA_TRI_HS", Name = "IX_KEY", IsUnique = true)]
 public partial class MAP_MIEN_GIAM_HS

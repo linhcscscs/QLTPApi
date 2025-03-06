@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Models;
+namespace DataAccess.SQL.QLTP.Models;
 
 [Index("MA", Name = "IX_DOI_TAC_THANH_TOAN_UNIQUE", IsUnique = true)]
 public partial class DOI_TAC_THANH_TOAN
