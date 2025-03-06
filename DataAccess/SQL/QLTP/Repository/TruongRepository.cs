@@ -17,8 +17,8 @@ namespace DataAccess.SQL.QLTP.Repository
     public interface ITruongRepository : IQLTPRepository<TRUONG>
     {
         public List<TRUONG> getAllActive(QLTPConnection connection, string maSo, string maPhong, string capHoc, int maNamHoc);
-        public TRUONG getByIDBasic(QLTPConnection connection, decimal id);
-        public TRUONG getByMaBasic(QLTPConnection connection, int maNamHoc, string maTruong);
+        public TRUONG? getByIDBasic(QLTPConnection connection, decimal id);
+        public TRUONG? getByMaBasic(QLTPConnection connection, int maNamHoc, string maTruong);
         public List<TRUONG> GetListByDonVi(QLTPConnection connection, int ma_nam_hoc, string ma_cap_hoc, string ma_so_gd, string ma_phong_gd = "", string ma_truong = "");
     }
     public class TruongRepository : QLTPRepository<TRUONG>, ITruongRepository
@@ -58,7 +58,7 @@ namespace DataAccess.SQL.QLTP.Repository
                 cacheTime: CachingTime.CACHING_TIME_DEFAULT_IN_5_MINUTES
                 ) ?? new List<TRUONG>();
         }
-        public TRUONG getByIDBasic(QLTPConnection connection, decimal id)
+        public TRUONG? getByIDBasic(QLTPConnection connection, decimal id)
         {
             return _cache.GetByKey(
                 getDataSource: () =>
@@ -70,10 +70,10 @@ namespace DataAccess.SQL.QLTP.Repository
                 },
                 key: _cache.BuildCachedKey("TRUONG", "getByIDBasic", connection.ma_nam_hoc, id),
                 cacheTime: CachingTime.CACHING_TIME_DEFAULT_IN_5_MINUTES
-            ) ?? new TRUONG();
+            );
         }
 
-        public TRUONG getByMaBasic(QLTPConnection connection, int maNamHoc, string maTruong)
+        public TRUONG? getByMaBasic(QLTPConnection connection, int maNamHoc, string maTruong)
         {
             string strKeyCache = _cache.BuildCachedKey("TRUONG", "getByMaBasic", maNamHoc, maTruong);
 
@@ -87,7 +87,7 @@ namespace DataAccess.SQL.QLTP.Repository
                 },
                 key: strKeyCache,
                 cacheTime: CachingTime.CACHING_TIME_DEFAULT_IN_5_MINUTES
-            ) ?? new TRUONG();
+            );
         }
 
         public List<TRUONG> GetListByDonVi(QLTPConnection connection, int ma_nam_hoc, string ma_cap_hoc, string ma_so_gd, string ma_phong_gd = "", string ma_truong = "")

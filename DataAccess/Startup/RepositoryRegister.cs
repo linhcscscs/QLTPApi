@@ -24,6 +24,9 @@ namespace DataAccess.Startup
             services.AddTransient<IPhongGDRepository, PhongGDRepository>();
             services.AddTransient<ITruongRepository, TruongRepository>();
             services.AddTransient<ISoGDRepository, SoGDRepository>();
+            services.AddTransient<INguoiDungRepository, NguoiDungRepository>();
+            services.AddTransient<IGroupUserRepository, GroupUserRepository>();
+            services.AddTransient<IGroupUserMenuRepository, GroupUserMenuRepository>();
             #endregion
         }
     }

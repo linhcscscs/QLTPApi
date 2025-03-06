@@ -14,7 +14,7 @@ namespace DataAccess.SQL.QLTP.Repository
 {
     public interface ISoGDRepository : IQLTPRepository<SO_GD>
     {
-        SO_GD getByMa(QLTPConnection connection, string maSO_GD);
+        SO_GD? getByMa(QLTPConnection connection, string maSO_GD);
         List<SO_GD> getAllActive(QLTPConnection connection);
         List<SO_GD> getSO_GDActive(QLTPConnection connection);
     }
@@ -24,7 +24,7 @@ namespace DataAccess.SQL.QLTP.Repository
         public SoGDRepository(IQLTPContextFactory contextFactory, ICacheProvider cache, IMapper mapper, IServiceProvider serviceProvider) : base(contextFactory, cache, mapper, serviceProvider)
         {
         }
-        public SO_GD getByMa(QLTPConnection connection, string maSO_GD)
+        public SO_GD? getByMa(QLTPConnection connection, string maSO_GD)
         {
             return _cache.GetByKey(
                 getDataSource: () =>
@@ -36,7 +36,7 @@ namespace DataAccess.SQL.QLTP.Repository
                 },
                 key: _cache.BuildCachedKey("SO_GD", "getByMa", connection.ma_nam_hoc, maSO_GD),
                 cacheTime: CachingTime.CACHING_TIME_DEFAULT_IN_5_MINUTES
-            ) ?? new SO_GD();
+            );
         }
 
         public List<SO_GD> getAllActive(QLTPConnection connection)

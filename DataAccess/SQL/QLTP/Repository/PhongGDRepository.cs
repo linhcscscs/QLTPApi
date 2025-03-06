@@ -15,8 +15,8 @@ namespace DataAccess.SQL.QLTP.Repository
 {
     public interface IPhongGDRepository : IQLTPRepository<PHONG_GD>
     {
-        TRUONG getByIDBasic(QLTPConnection connection, decimal id);
-        TRUONG getByMaBasic(QLTPConnection connection, int maNamHoc, string maTruong);
+        TRUONG? getByIDBasic(QLTPConnection connection, decimal id);
+        TRUONG? getByMaBasic(QLTPConnection connection, int maNamHoc, string maTruong);
         List<TRUONG> GetListByDonVi(QLTPConnection connection, int ma_nam_hoc, string ma_cap_hoc, string ma_so_gd, string ma_phong_gd = "", string ma_truong = "");
         List<PHONG_GD> GetListPhongByMaSoGD(QLTPConnection connection, string maSoGD, int maNamHoc);
     }
@@ -26,7 +26,7 @@ namespace DataAccess.SQL.QLTP.Repository
         public PhongGDRepository(IQLTPContextFactory contextFactory, ICacheProvider cache, IMapper mapper, IServiceProvider serviceProvider) : base(contextFactory, cache, mapper, serviceProvider)
         {
         }
-        public TRUONG getByIDBasic(QLTPConnection connection, decimal id)
+        public TRUONG? getByIDBasic(QLTPConnection connection, decimal id)
         {
             if (id <= 0)
                 return null;
@@ -41,9 +41,9 @@ namespace DataAccess.SQL.QLTP.Repository
                 },
                 key: _cache.BuildCachedKey("TRUONG", "getByIDBasic", connection.ma_nam_hoc, id),
                 cacheTime: CachingTime.CACHING_TIME_DEFAULT_IN_5_MINUTES
-            ) ?? new TRUONG();
+            );
         }
-        public TRUONG getByMaBasic(QLTPConnection connection, int maNamHoc, string maTruong)
+        public TRUONG? getByMaBasic(QLTPConnection connection, int maNamHoc, string maTruong)
         {
             return _cache.GetByKey(
                 getDataSource: () =>
@@ -55,7 +55,7 @@ namespace DataAccess.SQL.QLTP.Repository
                 },
                 key: _cache.BuildCachedKey("TRUONG", "getByMaBasic", maNamHoc, maTruong),
                 cacheTime: CachingTime.CACHING_TIME_DEFAULT_IN_5_MINUTES
-            ) ?? new TRUONG();
+            );
         }
         public List<TRUONG> GetListByDonVi(QLTPConnection connection, int ma_nam_hoc, string ma_cap_hoc, string ma_so_gd, string ma_phong_gd = "", string ma_truong = "")
         {

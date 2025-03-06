@@ -113,7 +113,7 @@ namespace DataAccess.Caching.MemCache
                bool isDeepClone = true)
                where T : new()
         {
-            T? result = new T();
+            T? result = default;
             if (!IsSet(key))
             {
                 result = getDataSource.Invoke();

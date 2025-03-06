@@ -20,8 +20,4 @@
     <PackageReference Include="System.Runtime.Caching" Version="9.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SQL\QLTP\Models\Models\" />
-  </ItemGroup>
-
 </Project>

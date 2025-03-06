@@ -106,4 +106,6 @@ public partial class NGUOI_DUNG
 
     [Column(TypeName = "datetime")]
     public DateTime? LAST_LOGIN { get; set; }
+
+    public Guid? VERSION { get; set; }
 }

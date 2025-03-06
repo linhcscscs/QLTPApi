@@ -295,22 +295,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[GroupUserPGD]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[GroupUserPGDMenuPGD]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[GroupUserSGD]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[GroupUserSGDMenuSGD]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[GUI_THONG_BAO_THU_TIEN]",
          "ObjectType": 0
       },
@@ -380,14 +364,6 @@
       },
       {
          "Name": "[dbo].[Menu]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[MenuPGD]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[MenuSGD]",
          "ObjectType": 0
       },
       {
