@@ -7,3 +7,6 @@
 /QLTPApi/Infrastructure.Service/obj
 /QLTPApi/Presentation.WebApi/bin
 /QLTPApi/Presentation.WebApi/obj
+
+/DataAccess/.vs
+/DataAccess/bin
