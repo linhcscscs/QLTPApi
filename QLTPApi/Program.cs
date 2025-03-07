@@ -1,9 +1,10 @@
+using DataAccess.Helper.ConfigHelper;
 using DataAccess.Helper.StartupHelper;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add builder.Services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -62,8 +63,12 @@ var startupClasses = startupAssemblies
 {
     foreach (var configStartupClass in configStartupClasses)
     {
-        var instance = (IBaseConfigStartup)Activator.CreateInstance(configStartupClass)!;
-        instance.Configure(config);
+        try
+        {
+            var instance = (IBaseConfigStartup)Activator.CreateInstance(configStartupClass)!;
+            instance.Configure(config);
+        }
+        catch { }
     }
 }
 #endregion
@@ -71,8 +76,62 @@ var startupClasses = startupAssemblies
 {
     foreach (var startupClass in startupClasses)
     {
-        var instance = (IBaseStartup)Activator.CreateInstance(startupClass)!;
-        instance.Configure(builder.Services);
+        try
+        {
+            var instance = (IBaseStartup)Activator.CreateInstance(startupClass)!;
+            instance.Configure(builder.Services);
+        }
+        catch { }
+    }
+}
+#endregion
+
+
+#region CORS
+var lstCors = ConfigHelper.AppSettings.CORS;
+if (lstCors.Count() > 0)
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: ConfigHelper.AppSettings.CORS_NAME,
+                          policy =>
+                          {
+                              policy.WithOrigins(lstCors!)
+                              .AllowAnyMethod()
+                              .AllowCredentials()
+                              .AllowAnyHeader();
+                          });
+    });
+}
+else
+{
+    if (builder.Environment.IsDevelopment())
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: ConfigHelper.AppSettings.CORS_NAME,
+                              policy =>
+                              {
+                                  policy.AllowAnyHeader();
+                                  policy.AllowAnyMethod();
+                                  policy.AllowAnyOrigin();
+                                  policy.AllowCredentials();
+                              });
+        });
+    }
+    else
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: ConfigHelper.AppSettings.CORS_NAME,
+                              policy =>
+                              {
+                                  policy.AllowAnyHeader();
+                                  policy.AllowAnyMethod();
+                                  policy.AllowAnyOrigin();
+                                  policy.AllowCredentials();
+                              });
+        });
     }
 }
 #endregion
@@ -87,8 +146,12 @@ if (app.Environment.IsDevelopment())
 #region Run IBaseStartup
 foreach (var startupClass in startupClasses)
 {
-    var instance = (IBaseStartup)Activator.CreateInstance(startupClass)!;
-    instance.Configure(app);
+    try
+    {
+        var instance = (IBaseStartup)Activator.CreateInstance(startupClass)!;
+        instance.Configure(app);
+    }
+    catch { }
 }
 #endregion
 

@@ -2,20 +2,17 @@
 using DataAccess.Caching;
 using DataAccess.Caching.Interface;
 using DataAccess.Entities;
-using DataAccess.Models;
 using DataAccess.SQL.QLTP.Context;
+using DataAccess.SQL.QLTP.Models;
 using DataAccess.SQL.QLTP.Repository.BaseRepository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.SQL.QLTP.Repository
 {
     public interface IGroupUserMenuRepository : IQLTPRepository<GroupUser>
     {
+        public List<GroupUserMenu> getByGroupUserID(QLTPConnection connection, long guID);
+        public List<GroupUserMenuEntity> getQuyenByGroupUserID(QLTPConnection connection, long guid);
     }
     class GroupUserMenuRepository : QLTPRepository<GroupUser>, IGroupUserMenuRepository
     {
@@ -40,7 +37,6 @@ namespace DataAccess.SQL.QLTP.Repository
                 cacheTime: CachingTime.CACHING_TIME_DEFAULT_IN_5_MINUTES
             ) ?? new List<GroupUserMenu>();
         }
-
         public List<GroupUserMenuEntity> getQuyenByGroupUserID(QLTPConnection connection, long guid)
         {
             return _cache.GetByKey(

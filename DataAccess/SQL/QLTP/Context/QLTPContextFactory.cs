@@ -1,4 +1,4 @@
-﻿using DataAccess.Models;
+﻿using DataAccess.SQL.QLTP.Models;
 using DataAccess.Values;
 using Microsoft.EntityFrameworkCore;
 

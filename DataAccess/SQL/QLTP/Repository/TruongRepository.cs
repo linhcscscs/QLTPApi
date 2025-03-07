@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
 using DataAccess.Caching;
 using DataAccess.Caching.Interface;
-using DataAccess.Models;
 using DataAccess.SQL.QLTP.Context;
+using DataAccess.SQL.QLTP.Models;
 using DataAccess.SQL.QLTP.Repository.BaseRepository;
 using DataAccess.Values;
-using Force.DeepCloner;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.SQL.QLTP.Repository
 {
