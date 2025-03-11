@@ -87,17 +87,6 @@ var startupClasses = startupAssemblies
 }
 #endregion
 
-#region Logger
-if(ConfigHelper.LogSettings.LOGGING_TYPE == "1")
-{
-    Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()  // Log ra console
-    .WriteTo.File($"Logs/log{DateTime.Now:ddMMyyyy}.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-    builder.Host.UseSerilog();
-}
-#endregion
-
 #region CORS
 var lstCors = ConfigHelper.AppSettings.CORS;
 if (lstCors.Count() > 0)
