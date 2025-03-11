@@ -155,14 +155,6 @@ public partial class QUAN_LY_THU_PHI_2025Context : DbContext
 
     public virtual DbSet<GroupUserMenu> GroupUserMenu { get; set; }
 
-    public virtual DbSet<GroupUserPGD> GroupUserPGD { get; set; }
-
-    public virtual DbSet<GroupUserPGDMenuPGD> GroupUserPGDMenuPGD { get; set; }
-
-    public virtual DbSet<GroupUserSGD> GroupUserSGD { get; set; }
-
-    public virtual DbSet<GroupUserSGDMenuSGD> GroupUserSGDMenuSGD { get; set; }
-
     public virtual DbSet<HOA_DON_DIEN_TU> HOA_DON_DIEN_TU { get; set; }
 
     public virtual DbSet<HOC_SINH> HOC_SINH { get; set; }
@@ -197,10 +189,6 @@ public partial class QUAN_LY_THU_PHI_2025Context : DbContext
 
     public virtual DbSet<Menu> Menu { get; set; }
 
-    public virtual DbSet<MenuPGD> MenuPGD { get; set; }
-
-    public virtual DbSet<MenuSGD> MenuSGD { get; set; }
-
     public virtual DbSet<NAM_HOC> NAM_HOC { get; set; }
 
     public virtual DbSet<NGAY_HOC_THANG> NGAY_HOC_THANG { get; set; }
@@ -228,6 +216,8 @@ public partial class QUAN_LY_THU_PHI_2025Context : DbContext
     public virtual DbSet<PHONG_GD> PHONG_GD { get; set; }
 
     public virtual DbSet<QUYEN_NGUOI_DUNG> QUYEN_NGUOI_DUNG { get; set; }
+
+    public virtual DbSet<RefreshToken> RefreshToken { get; set; }
 
     public virtual DbSet<SO_GD> SO_GD { get; set; }
 
@@ -701,32 +691,6 @@ public partial class QUAN_LY_THU_PHI_2025Context : DbContext
             entity.HasOne(d => d.Menu).WithMany(p => p.GroupUserMenu)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GroupUserMenu_Menu");
-        });
-
-        modelBuilder.Entity<GroupUserPGDMenuPGD>(entity =>
-        {
-            entity.Property(e => e.GroupUserPGDMenuPGDID).ValueGeneratedOnAdd();
-
-            entity.HasOne(d => d.GroupUserPGD).WithMany(p => p.GroupUserPGDMenuPGD)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GroupUserPGDMenuPGD_GroupUserPGD");
-
-            entity.HasOne(d => d.MenuPGD).WithMany(p => p.GroupUserPGDMenuPGD)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GroupUserPGDMenuPGD_MenuPGD");
-        });
-
-        modelBuilder.Entity<GroupUserSGDMenuSGD>(entity =>
-        {
-            entity.Property(e => e.GroupUserSGDMenuSGDID).ValueGeneratedOnAdd();
-
-            entity.HasOne(d => d.GroupUserSGD).WithMany(p => p.GroupUserSGDMenuSGD)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GroupUserSGDMenuSGD_GroupUserSGD");
-
-            entity.HasOne(d => d.MenuSGD).WithMany(p => p.GroupUserSGDMenuSGD)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GroupUserSGDMenuSGD_MenuSGD");
         });
 
         modelBuilder.Entity<HOC_SINH>(entity =>

@@ -1,0 +1,7 @@
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\QLTPApi\obj\Debug\net9.0\QLTPApi.csproj.AssemblyReference.cache
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\QLTPApi\obj\Debug\net9.0\QLTPApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\QLTPApi\obj\Debug\net9.0\QLTPApi.AssemblyInfoInputs.cache
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\QLTPApi\obj\Debug\net9.0\QLTPApi.AssemblyInfo.cs
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\QLTPApi\obj\Debug\net9.0\QLTPApi.csproj.CoreCompileInputs.cache
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\QLTPApi\obj\Debug\net9.0\QLTPApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\QLTPApi\obj\Debug\net9.0\QLTPApi.sourcelink.json

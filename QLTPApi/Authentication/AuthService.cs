@@ -1,91 +1,129 @@
 ﻿using DataAccess.Helper.AuthHelper;
 using DataAccess.Helper.ConfigHelper;
 using DataAccess.Helper.ControllerHelper.Models;
-using Microsoft.AspNetCore.Identity.Data;
+using DataAccess.Helper.ControllerHelper.Values;
+using DataAccess.SQL.QLTP.Repository;
+using DataAccess.Values;
+using QLTPApi.Authentication.Models;
 using QLTPApi.Authentication.Values;
 using System.Security.Claims;
+using DataAccess.Helper.Extensions;
+using LoginRequest = QLTPApi.Authentication.Models.LoginRequest;
+using DataAccess.SQL.QLTP.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace QLTPApi.Authentication
 {
     public interface IAuthService
     {
-
     }
     public class AuthService : IAuthService
     {
         #region Contructor
-        public AuthService(IAuthContext authContext)
+        public AuthService(IAuthContext authContext,
+            INguoiDungRepository nguoiDungRepository,
+            ITruongRepository truongRepository,
+            IRefreshTokenRepository refreshTokenRepository)
         {
             _authContext = authContext;
+            _nguoiDungRepository = nguoiDungRepository;
+            _truongRepository = truongRepository;
+            _refreshTokenRepository = refreshTokenRepository;
         }
         private IAuthContext _authContext;
+        private INguoiDungRepository _nguoiDungRepository;
+        private ITruongRepository _truongRepository;
+        private IRefreshTokenRepository _refreshTokenRepository;
         #endregion
         #region Method
         public ReturnCode Login(LoginRequest model)
         {
             var ret = new ReturnCode();
-            var tokenResponse = new TokenResponse();
-            var baseConnection = new PhoCapGDBaseConnection(ConfigHelper.NamHoc, model.ma_tinh);
-            var nguoiDung = _nguoiDungRepository.GetNguoiDungByUserAndPassword(baseConnection, model.ma_tinh, model.ma_huyen, model.ma_xa, model.username, model.password);
-            if (nguoiDung == null)
+            var hashedPassword = AuthHelper.MD5(model.PASSWORD);
+            var nguoiDung = _nguoiDungRepository.getLoginTruong(_authContext.QLTPWorkingConnection, model.USERNAME, model.PASSWORD, model.MA_SO_GD, model.MA_TRUONG, SysCapDonVi.Truong);
+            var truong = _truongRepository.getByMaBasic(_authContext.QLTPWorkingConnection, _authContext.Sys_Profile.SysTem_Nam_Hoc, model.MA_TRUONG);
+            if (nguoiDung == null || truong == null)
             {
-                ret = new ReturnCode()
-                {
-                    status = 0,
-                    message = "Tài khoản hoặc mật khẩu không đúng",
-                    status_code = 401
-                };
+                ret = new ReturnCode(EReturnCode.Invalid_Credentials);
                 return ret;
             }
-
-            #region Generate access token
-            var claims = new ClaimsIdentity(
-                [
-                    new Claim(UserClaimKey.NguoiDungId, nguoiDung.ID.ToString()),
-                    new Claim(UserClaimKey.Version, nguoiDung.VERSION?.ToString() ?? ""),
-                    new Claim(UserClaimKey.MA_TINH, model.ma_tinh),
-                    new Claim(UserClaimKey.MA_HUYEN, model.ma_huyen),
-                    new Claim(UserClaimKey.MA_XA, model.ma_xa),
-                    new Claim(UserClaimKey.MA_NAM_HOC, ConfigHelper.NamHoc.ToString()),
-                    new Claim(UserClaimKey.App_Version, ConfigHelper.ConfigValue.Version)
-                ]);
-
-            var expDate = model.remember ? AuthHelper.GetRememberExperiedDate() : AuthHelper.GetExperiedDate();
-            var accessToken = AuthHelper.GenerateAccessToken(claims, expDate);
-            #endregion
-
-            tokenResponse.experied_time = AuthHelper.GetExperiedDate();
-            tokenResponse.version = nguoiDung.VERSION;
-
-            tokenResponse.access_token = accessToken;
-            tokenResponse.ma_nam_hoc = ConfigHelper.NamHoc;
-            tokenResponse.ma_tinh = model.ma_tinh;
-            tokenResponse.ma_huyen = model.ma_huyen;
-            tokenResponse.ma_xa = model.ma_xa;
-            tokenResponse.ten_hien_thi = nguoiDung.TEN_HIEN_THI ?? nguoiDung.TEN_DANG_NHAP;
-            tokenResponse.is_root = nguoiDung.IS_ROOT == 1;
-            tokenResponse.is_root_sys = nguoiDung.IS_ROOT_SYS == 1;
-
-            // Log
-            var httpContextAccessor = _authContext.HttpContextAccessor;
-            _logSYSRepository.Save(new LogSYS()
+            #region Generate token
+            var token = GenerateToken(new PrepareTokenModel()
             {
-                MA_NAM_HOC = _authContext.Sys_Profile.MA_NAM_HOC,
-                MA_TINH = model.ma_tinh,
-                MA_HUYEN = model.ma_huyen,
-                MA_XA = model.ma_xa,
-                NGAY_TAO = DateTime.Now,
-                HANH_DONG = LogType.LOG_IN,
-                TEN_BANG = "",
-                GHI_CHU = "Đăng nhập",
-                NGUOI_TAO = model.username,
-                IP = httpContextAccessor.GetIPAddress(),
-                URL = httpContextAccessor.GetURL(),
-                USER_AGENT = httpContextAccessor.GetUserAgent()
+                NGUOI_DUNG_ID = nguoiDung.ID,
+                USER_VERSION = nguoiDung.VERSION,
+                APP_VERSION = ConfigHelper.AppSettings.VERSION,
+                MA_NAM_HOC = LocalApi.GetYearNow(),
+                HOC_KY = LocalApi.GetKyNow(),
+                MA_CAP_HOC = model.MA_CAP_HOC,
+                MA_SO_GD = model.MA_SO_GD,
+                ID_TRUONG = truong.ID,
+                MA_TRUONG = truong.MA
             });
-            ret.data = tokenResponse;
+            #endregion
             return ret;
         }
         #endregion
+        private TokenResponse GenerateToken(PrepareTokenModel model )
+        {
+            var tokenResponse = new TokenResponse()
+            {
+                NGUOI_DUNG_ID = model.NGUOI_DUNG_ID,
+                APP_VERSION = model.APP_VERSION,
+                HOC_KY = model.HOC_KY,
+                ID_TRUONG = model.ID_TRUONG,
+                MA_CAP_HOC= model.MA_CAP_HOC,
+                MA_NAM_HOC= model.MA_NAM_HOC,
+                MA_SO_GD = model.MA_SO_GD,
+                MA_TRUONG= model.MA_TRUONG,
+                USER_VERSION = model.USER_VERSION,
+            };
+            var claims = new ClaimsIdentity(
+                [
+                    new Claim(UserClaimKey.NGUOI_DUNG_ID, model.NGUOI_DUNG_ID.ToString()?? ""),
+                    new Claim(UserClaimKey.USER_VERSION, model.USER_VERSION?.ToString() ?? ""),
+                    new Claim(UserClaimKey.APP_VERSION, model.APP_VERSION),
+                    new Claim(UserClaimKey.MA_NAM_HOC, model.MA_NAM_HOC.ToString()),
+                    new Claim(UserClaimKey.HOC_KY, model.HOC_KY.ToString()),
+                    new Claim(UserClaimKey.MA_CAP_HOC, model.MA_CAP_HOC),
+                    new Claim(UserClaimKey.MA_SO_GD, model.MA_SO_GD),
+                    new Claim(UserClaimKey.ID_TRUONG, model.ID_TRUONG.ToString()),
+                    new Claim(UserClaimKey.MA_TRUONG, model.MA_TRUONG),
+                ]);
+            tokenResponse.ACCESS_TOKEN = new Token()
+            {
+                TOKEN = AuthHelper.GenerateAccessToken(claims, AuthHelper.GetExperiedDate()),
+                EXPERIED_DATE = AuthHelper.GetExperiedDate()
+            };
+            if (!model.REMEMBER) return tokenResponse;
+            tokenResponse.REFRESH_TOKEN = new Token()
+            {
+                TOKEN = GenerateRefreshToken(model),
+                EXPERIED_DATE = AuthHelper.GetRefreshTokenExperiedDate()
+            };
+            return tokenResponse;
+        }
+        private string GenerateRefreshToken(PrepareTokenModel model)
+        {
+            var token = AuthHelper.GenerateRefreshToken();
+            var expDate = AuthHelper.GetRefreshTokenExperiedDate();
+            var refreshToken = new RefreshToken()
+            {
+                APP_VERSION = ConfigHelper.AppSettings.VERSION,
+                EXPERIED_DATE = AuthHelper.GetRefreshTokenExperiedDate(),
+                HOC_KY = model.HOC_KY,
+                MA_CAP_HOC = model.MA_CAP_HOC,
+                MA_NAM_HOC = model.MA_NAM_HOC,
+                MA_SO_GD = model.MA_SO_GD,
+                MA_TRUONG = model.MA_TRUONG,
+                NGUOI_DUNG_ID = model.NGUOI_DUNG_ID
+            };
+            var res  = _refreshTokenRepository.Insert(_authContext.QLTPWorkingConnection, refreshToken);
+            if (!res.Res)
+            {
+                throw new Exception();
+            }
+            return token;
+        }
     }
 }

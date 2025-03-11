@@ -1,13 +1,7 @@
 ﻿using AutoMapper;
 using DataAccess.Caching.Interface;
-using DataAccess.Models;
 using DataAccess.SQL.QLTP.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.SQL.QLTP.Repository.BaseRepository
 {

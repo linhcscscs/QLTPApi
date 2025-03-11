@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Bson;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -31,7 +34,7 @@ namespace DataAccess.Helper.AuthHelper
             { return value; }
             return sb.ToString();
         }
-        public static string GetByClaim(ClaimsPrincipal principal, string claimName)
+        public static string GetByClaim(this ClaimsPrincipal principal, string claimName)
         {
             return principal.FindFirst(claimName)?.Value ?? "";
         }
@@ -142,7 +145,7 @@ namespace DataAccess.Helper.AuthHelper
             }
         }
         public static DateTime GetExperiedDate() => DateTime.UtcNow.AddMinutes(JWTSettings.TokenValidityInMinutes);
-        public static DateTime GetRememberExperiedDate() => DateTime.UtcNow.AddMinutes(JWTSettings.RememberTokenValidityInMinute);
+        public static DateTime GetRefreshTokenExperiedDate() => DateTime.UtcNow.AddMinutes(JWTSettings.RefreshTokenValidityInMinutes);
         public static string GenerateAccessToken(ClaimsIdentity claims, DateTime? expired_date = null)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -166,7 +169,7 @@ namespace DataAccess.Helper.AuthHelper
             var refreshToken = Convert.ToBase64String(randomNumber);
             return refreshToken;
         }
-        public static string? GetAccessTokenFromHeader(HttpContext httpContext)
+        public static string? GetAccessTokenFromHeader(this HttpContext httpContext)
         {
             var authorizationHeader = httpContext.Request.Headers["Authorization"].ToString();
             if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
@@ -174,6 +177,42 @@ namespace DataAccess.Helper.AuthHelper
                 return authorizationHeader["Bearer ".Length..]; // Cắt bỏ "Bearer " để lấy token
             }
             return null;
+        }
+        public static Dictionary<string, string> DecodeJwt(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            return jwtToken.Claims.ToDictionary(c => c.Type, c => c.Value);
+        }
+        public static bool ValidJwt(string token, out ClaimsPrincipal claimsPrincipal)
+        {
+            claimsPrincipal = new ClaimsPrincipal();
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var validationParameters = GetTokenValidationParameters();
+                claimsPrincipal = tokenHandler.ValidateToken(token, validationParameters, out _);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static TokenValidationParameters GetTokenValidationParameters()
+        {
+            return new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.Zero,
+
+                ValidAudience = JWTSettings.ValidAudience,
+                ValidIssuer = JWTSettings.ValidIssuer,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTSettings.Secret!))
+            };
         }
     }
 }

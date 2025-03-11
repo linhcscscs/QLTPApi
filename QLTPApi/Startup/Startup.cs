@@ -10,6 +10,8 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using QLTPApi.Authentication;
+using DataAccess.Helper.LazyDI;
+using DataAccess.Helper.AuthHelper;
 
 namespace QLTPApi.Startup
 {
@@ -48,18 +50,7 @@ namespace QLTPApi.Startup
             {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ClockSkew = TimeSpan.Zero,
-
-                    ValidAudience = JWTSettings.ValidAudience,
-                    ValidIssuer = JWTSettings.ValidIssuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTSettings.Secret!))
-                };
+                options.TokenValidationParameters = AuthHelper.GetTokenValidationParameters();
             });
 
             // Swagger JWT config
@@ -99,9 +90,21 @@ namespace QLTPApi.Startup
             });
             #endregion
 
+            #region Lazy DI
+            services.AddTransient(typeof(Lazy<>), typeof(LazyServiceProvider<>));
+            #endregion
+
             #region Auth Services
             services.AddSingleton<IAuthContext, AuthContext>();
             #endregion
+
+            #region Cấu hình return API giữ nguyên tên field
+            services.AddControllers().AddJsonOptions(options =>
+                    {
+                        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    });
+            #endregion
+
             #endregion
         }
 

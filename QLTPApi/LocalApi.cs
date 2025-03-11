@@ -4,6 +4,19 @@ namespace QLTPApi
 {
     public static class LocalApi
     {
+        public static int GetYearNow()
+        {
+            #region Nhận dạng năm học, học kỳ
+            try
+            {
+                int verion = ConfigHelper.AppSettings.NAM_HOC;
+                return verion;
+            }
+            catch { }
+            return 2021;
+
+            #endregion
+        }
         public static int GetKyNow()
         {
             #region Nhận dạng năm học, học kỳ

@@ -423,6 +423,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[RefreshToken]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[SO_GD]",
          "ObjectType": 0
       },

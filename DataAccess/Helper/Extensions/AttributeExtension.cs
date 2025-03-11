@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.AttributeCollection;
 using DataAccess.Helper.Extensions.Interface;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DataAccess.Helper.Extensions
 {
@@ -26,11 +29,17 @@ namespace DataAccess.Helper.Extensions
             }
             return obj.ToString();
         }
-        public static valueType? GetAttribute<Atribute, valueType>(this Enum GenericEnum)
+        public static int GetStatusCode(this object obj)
+        {
+            var ret = GetAttribute<StatusCodeAttribute, int>(obj);
+            if (ret == 0) ret = 500;
+            return ret;
+        }
+        public static valueType? GetAttribute<Atribute, valueType>(this object obj)
             where Atribute : Attribute, ICustomAttribute<valueType>
         {
-            Type genericEnumType = GenericEnum.GetType();
-            MemberInfo[] memberInfo = genericEnumType.GetMember(GenericEnum.ToString());
+            Type genericEnumType = obj.GetType();
+            MemberInfo[] memberInfo = genericEnumType.GetMember(obj.ToString());
             if (memberInfo != null && memberInfo.Length > 0)
             {
                 var _Attribs = memberInfo[0].GetCustomAttributes(typeof(Atribute), false);
