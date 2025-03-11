@@ -5,3 +5,6 @@
 /DataAccess/.vs/
 /DataAccess/bin/
 /DataAccess/obj/
+
+bin/
+obj/
