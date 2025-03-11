@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QLTPApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92b0275915bb5799a702b06856232914fbf18199")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b56ef71efcbe77c63fffe891b7d8940aec7a6b31")]
 [assembly: System.Reflection.AssemblyProductAttribute("QLTPApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QLTPApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

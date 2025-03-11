@@ -1,5 +1,5 @@
 ﻿using DataAccess.Helper.AuthHelper;
-using DataAccess.Helper.CommonHelper;
+using DataAccess.Helper.Common;
 using DataAccess.Helper.ConfigHelper;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using QLTPApi.Authentication.Models;

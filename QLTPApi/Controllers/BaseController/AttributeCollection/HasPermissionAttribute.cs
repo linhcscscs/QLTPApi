@@ -1,12 +1,11 @@
 ﻿using DataAccess.Helper.ControllerHelper;
-using DataAccess.Helper.ControllerHelper.Models;
 using DataAccess.Helper.ControllerHelper.Values;
 using DataAccess.Helper.Extensions.Interface;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using QLTPApi.Authentication;
 
-namespace QLTPApi.Authentication.AttributeCollection
+namespace QLTPApi.Controllers.BaseController.AttributeCollection
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class HasPermissionAttribute : Attribute, IAuthorizationFilter, ICustomAttribute<SysTypeAccess>
@@ -55,16 +54,16 @@ namespace QLTPApi.Authentication.AttributeCollection
                     hasPermission = isRoot || permissons?.IsView == 1;
                     break;
                 case SysTypeAccess.Add:
-                    hasPermission = isRoot || (permissons?.IsAdd == 1 && permissons?.IsView == 1);
+                    hasPermission = isRoot || permissons?.IsAdd == 1 && permissons?.IsView == 1;
                     break;
                 case SysTypeAccess.Edit:
-                    hasPermission = isRoot || (permissons?.IsEdit == 1 && permissons?.IsView == 1);
+                    hasPermission = isRoot || permissons?.IsEdit == 1 && permissons?.IsView == 1;
                     break;
                 case SysTypeAccess.Delete:
-                    hasPermission = isRoot || (permissons?.IsDelete == 1 && permissons?.IsView == 1);
+                    hasPermission = isRoot || permissons?.IsDelete == 1 && permissons?.IsView == 1;
                     break;
                 case SysTypeAccess.Upload:
-                    hasPermission = isRoot || (permissons?.IsUpload == 1 && permissons?.IsView == 1);
+                    hasPermission = isRoot || permissons?.IsUpload == 1 && permissons?.IsView == 1;
                     break;
                 case SysTypeAccess.Auth:
                     //hasPermission = isRoot || permissons.Any(q => permissons?.IsAuth == 1) || authContext.IsAuthenticated;

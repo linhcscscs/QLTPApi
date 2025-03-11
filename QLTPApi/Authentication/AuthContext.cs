@@ -1,5 +1,5 @@
 ﻿using DataAccess.Helper.AuthHelper;
-using DataAccess.Helper.CommonHelper;
+using DataAccess.Helper.Common;
 using DataAccess.Helper.ConfigHelper;
 using DataAccess.SQL.QLTP.Context;
 using DataAccess.SQL.QLTP.Models;

@@ -2,9 +2,17 @@ QLTPApi/.vs/
 QLTPApi/bin/
 QLTPApi/obj/
 
+/QLTPApi/.vs/
+/QLTPApi/bin/
+/QLTPApi/obj/
+
 DataAccess/.vs/
 DataAccess/bin/
 DataAccess/obj/
+
+/DataAccess/.vs/
+/DataAccess/bin/
+/DataAccess/obj/
 
 bin/
 obj/

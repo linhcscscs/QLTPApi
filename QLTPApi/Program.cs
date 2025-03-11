@@ -1,5 +1,6 @@
 using DataAccess.Helper.ConfigHelper;
 using DataAccess.Helper.StartupHelper;
+using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -86,6 +87,16 @@ var startupClasses = startupAssemblies
 }
 #endregion
 
+#region Logger
+if(ConfigHelper.LogSettings.LOGGING_TYPE == "1")
+{
+    Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()  // Log ra console
+    .WriteTo.File($"Logs/log{DateTime.Now:ddMMyyyy}.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+    builder.Host.UseSerilog();
+}
+#endregion
 
 #region CORS
 var lstCors = ConfigHelper.AppSettings.CORS;

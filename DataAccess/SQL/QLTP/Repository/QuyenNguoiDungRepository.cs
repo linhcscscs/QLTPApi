@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DataAccess.Caching.Interface;
-using DataAccess.Helper.CommonHelper;
+using DataAccess.Helper.Common;
 using DataAccess.SQL.QLTP.Context;
 using DataAccess.SQL.QLTP.Models;
 using DataAccess.SQL.QLTP.Repository.BaseRepository;

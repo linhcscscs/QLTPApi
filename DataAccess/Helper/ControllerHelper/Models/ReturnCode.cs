@@ -1,64 +1,53 @@
-﻿using DataAccess.Helper.ControllerHelper.Values;
+﻿using DataAccess.Helper.Common;
+using DataAccess.Helper.ControllerHelper.Values;
 using DataAccess.Helper.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Helper.ControllerHelper.Models
 {
     public class ReturnCode
     {
-        private ErrorCode? _eErrorCode;
-        private string? _errorCode = null;
+        private ErrorCode? _errorCode;
+        private string? _errorCodeMsg = null;
         private string? _errorMsg = null;
         private bool? _isSuccess = null;
         public ReturnCode(ErrorCode returnCode)
         {
-            _eErrorCode = returnCode;
+            _errorCode = returnCode;
         }
-        public ReturnCode(bool isSuccess = true) {
+        public ReturnCode(bool isSuccess = true)
+        {
             _isSuccess = isSuccess;
         }
-        public ErrorCode? errorCode
-        {
-            set
-            {
-                _eErrorCode = value;
-            }
-        }
-
         public bool Success
         {
             get
             {
-                return _eErrorCode == null && string.IsNullOrEmpty(ErrorCode) && _isSuccess != true;
+                return _errorCode == null && string.IsNullOrEmpty(ErrorCode) && _isSuccess != true;
             }
         }
         public string ErrorCode
         {
             get
             {
-                return _errorCode ?? _eErrorCode?.ToString() ?? "";
+                return CommonHelper.IfNull(_errorCodeMsg, _errorCode?.ToString() ?? "");
             }
             set
             {
-                _errorCode = value;
+                _errorCodeMsg = value;
             }
         }
         public string ErrorMsg
         {
             get
             {
-                return _errorMsg ?? _eErrorCode?.GetDescription() ?? "";
+                return CommonHelper.IfNull(_errorMsg, _errorCode?.GetDescription() ?? "");
             }
             set
             {
                 _errorMsg = value;
             }
         }
-        public int StatusCode => Success ? 200 : _eErrorCode?.GetStatusCode() ?? 500;
+        public int StatusCode => Success ? 200 : _errorCode?.GetStatusCode() ?? 500;
         public object Data { get; set; }
     }
 }

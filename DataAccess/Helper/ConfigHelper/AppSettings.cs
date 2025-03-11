@@ -1,4 +1,4 @@
-﻿using static DataAccess.Helper.CommonHelper.CommonHelper;
+﻿using static DataAccess.Helper.Common.CommonHelper;
 
 namespace DataAccess.Helper.ConfigHelper
 {

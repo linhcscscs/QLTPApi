@@ -14,7 +14,11 @@ namespace DataAccess.Helper.ControllerHelper
         public static OkObjectResult Success(object? data = null)
         {
             var model = new ReturnCode(true) { Data = data };
-            return new OkObjectResult(model);
+            return Success(model);
+        }
+        public static OkObjectResult Success(ReturnCode returnCode)
+        {
+            return new OkObjectResult(returnCode);
         }
         public static ObjectResult Error(string messange = "", string error_code = "", int? status_code = null)
         {

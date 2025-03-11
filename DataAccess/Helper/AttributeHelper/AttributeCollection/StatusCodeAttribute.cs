@@ -1,11 +1,6 @@
 ﻿using DataAccess.Helper.Extensions.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataAccess.AttributeCollection
+namespace DataAccess.Helper.AttributeHelper.AttributeCollection
 {
     class StatusCodeAttribute : Attribute, ICustomAttribute<int>
     {

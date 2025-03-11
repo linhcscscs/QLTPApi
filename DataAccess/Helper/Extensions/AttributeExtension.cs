@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccess.AttributeCollection;
+using DataAccess.Helper.AttributeHelper.AttributeCollection;
 using DataAccess.Helper.Extensions.Interface;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DataAccess.Helper.Extensions
 {

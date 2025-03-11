@@ -1,10 +1,5 @@
-﻿using DataAccess.AttributeCollection;
-using System;
-using System.Collections.Generic;
+﻿using DataAccess.Helper.AttributeHelper.AttributeCollection;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Helper.ControllerHelper.Values
 {

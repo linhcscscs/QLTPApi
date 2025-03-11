@@ -6,6 +6,7 @@ using DataAccess.Helper.StartupHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using StackExchange.Redis;
 
 namespace DataAccess.Startup

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Helper.CommonHelper
+namespace DataAccess.Helper.Common
 {
     public static class CommonHelper
     {
