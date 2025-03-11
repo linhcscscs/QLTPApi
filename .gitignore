@@ -1,12 +1,7 @@
 /QLTPApi/.vs
-/QLTPApi/Core/bin
-/QLTPApi/Core/obj
-/QLTPApi/Infrastructure.Repository/bin
-/QLTPApi/Infrastructure.Repository/obj
-/QLTPApi/Infrastructure.Service/bin
-/QLTPApi/Infrastructure.Service/obj
-/QLTPApi/Presentation.WebApi/bin
-/QLTPApi/Presentation.WebApi/obj
+/QLTPApi/bin
+/QLTPApi/obj
 
 /DataAccess/.vs
 /DataAccess/bin
+/DataAccess/obj

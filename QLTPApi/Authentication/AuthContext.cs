@@ -253,7 +253,7 @@ namespace QLTPApi.Authentication
                     var jwt = _httpContext.GetAccessTokenFromHeader();
                     if (string.IsNullOrEmpty(jwt) || AuthHelper.ValidJwt(jwt, out var user))
                     {
-                        _Sys_Token_Infomation = new SYS_Profile();
+                        _Sys_Token_Infomation = new SYS_Profile() { IsAuthenticated = false };
                         return _Sys_Token_Infomation;
                     }
                     _Sys_Token_Infomation = new SYS_Profile()

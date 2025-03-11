@@ -36,19 +36,20 @@ namespace QLTPApi.Authentication
         private IRefreshTokenRepository _refreshTokenRepository;
         #endregion
         #region Method
-        public ReturnCode Login(LoginRequest model)
+        public ReturnCode Login(LoginRequest model, out TokenResponse tokenResponse)
         {
             var ret = new ReturnCode();
+            tokenResponse = new TokenResponse();
             var hashedPassword = AuthHelper.MD5(model.PASSWORD);
             var nguoiDung = _nguoiDungRepository.getLoginTruong(_authContext.QLTPWorkingConnection, model.USERNAME, model.PASSWORD, model.MA_SO_GD, model.MA_TRUONG, SysCapDonVi.Truong);
             var truong = _truongRepository.getByMaBasic(_authContext.QLTPWorkingConnection, _authContext.Sys_Profile.SysTem_Nam_Hoc, model.MA_TRUONG);
             if (nguoiDung == null || truong == null)
             {
-                ret = new ReturnCode(EReturnCode.Invalid_Credentials);
+                ret = new ReturnCode(ErrorCode.Invalid_Credentials);
                 return ret;
             }
             #region Generate token
-            var token = GenerateToken(new PrepareTokenModel()
+            tokenResponse = GenerateToken(new PrepareTokenModel()
             {
                 NGUOI_DUNG_ID = nguoiDung.ID,
                 USER_VERSION = nguoiDung.VERSION,
@@ -63,8 +64,25 @@ namespace QLTPApi.Authentication
             #endregion
             return ret;
         }
+        public ReturnCode RefreshToken(string refreshToken)
+        {
+            var ret = new ReturnCode();
+            var user = _authContext.Sys_Token_Infomation;
+            if (!user.IsAuthenticated)
+            {
+                return new ReturnCode(ErrorCode.Invalid_Token);
+            }
+            // Check user
+            var nguoiDung = _nguoiDungRepository.GetByID(_authContext.QLTPWorkingConnection, user.NGUOI_DUNG_ID ?? 0);
+            if(nguoiDung == null || nguoiDung.VERSION != user.USER_VERSION)
+            {
+                return new ReturnCode(ErrorCode.Invalid_Token);
+            }
+            var refreshToken = _refreshTokenRepository.GetByNguoiDung(_authContext.QLTPWorkingConnection, nguoiDung.ID, ConfigHelper.AppSettings.VERSION, nguoiDung.VERSION).FirstOrDefault(x => x.);
+            return ret;
+        }
         #endregion
-        private TokenResponse GenerateToken(PrepareTokenModel model )
+        private TokenResponse GenerateToken(PrepareTokenModel model)
         {
             var tokenResponse = new TokenResponse()
             {

@@ -4,3 +4,10 @@ C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\obj\Debug\net9.0\
 C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\obj\Debug\net9.0\DataAccess.AssemblyInfo.cs
 C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\obj\Debug\net9.0\DataAccess.csproj.CoreCompileInputs.cache
 C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\obj\Debug\net9.0\DataAccess.sourcelink.json
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\bin\Debug\net9.0\DataAccess.deps.json
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\bin\Debug\net9.0\DataAccess.dll
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\bin\Debug\net9.0\DataAccess.pdb
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\obj\Debug\net9.0\DataAccess.dll
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\obj\Debug\net9.0\refint\DataAccess.dll
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\obj\Debug\net9.0\DataAccess.pdb
+C:\Users\linhl\Desktop\Projects\BaseQLTPApi\QLTPApi\DataAccess\obj\Debug\net9.0\ref\DataAccess.dll

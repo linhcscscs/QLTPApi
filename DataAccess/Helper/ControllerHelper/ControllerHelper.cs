@@ -16,7 +16,6 @@ namespace DataAccess.Helper.ControllerHelper
             var model = new ReturnCode(true) { Data = data };
             return new OkObjectResult(model);
         }
-
         public static ObjectResult Error(string messange = "", string error_code = "", int? status_code = null)
         {
             var model = new ReturnCode(false);
@@ -32,9 +31,9 @@ namespace DataAccess.Helper.ControllerHelper
             ret.StatusCode = model.StatusCode;
             return ret;
         }
-        public static ObjectResult ReturnCode(EReturnCode eReturnCode)
+        public static ObjectResult ReturnCode(ErrorCode errorCode)
         {
-            var model = new ReturnCode(eReturnCode);
+            var model = new ReturnCode(errorCode);
             var ret = new ObjectResult(model);
             return ret;
         }
@@ -55,7 +54,7 @@ namespace DataAccess.Helper.ControllerHelper
         {
             get
             {
-                return ReturnCode(new ReturnCode(EReturnCode.Internal_Error_Exception));
+                return ReturnCode(new ReturnCode(ErrorCode.Internal_Error_Exception));
             }
         }
     }

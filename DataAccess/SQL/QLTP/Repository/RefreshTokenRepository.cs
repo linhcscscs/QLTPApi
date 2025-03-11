@@ -15,7 +15,7 @@ namespace DataAccess.SQL.QLTP.Repository
 {
     public interface IRefreshTokenRepository : IQLTPRepository<RefreshToken>
     {
-        public List<RefreshToken>? GetByNguoiDung(QLTPConnection connection, decimal NguoiDungID);
+        public List<RefreshToken>? GetByNguoiDung(QLTPConnection connection, decimal nguoiDungID, string appVersion, Guid? userVersion);
         public ResultEntity Insert(QLTPConnection connection, RefreshToken model);
     }
     class RefreshTokenRepository : QLTPRepository<RefreshToken>, IRefreshTokenRepository
@@ -23,19 +23,26 @@ namespace DataAccess.SQL.QLTP.Repository
         public RefreshTokenRepository(IQLTPContextFactory contextFactory, ICacheProvider cache, IMapper mapper, IServiceProvider serviceProvider) : base(contextFactory, cache, mapper, serviceProvider)
         {
         }
-        public List<RefreshToken>? GetByNguoiDung(QLTPConnection connection, decimal NguoiDungID)
+        #region GET
+        public List<RefreshToken>? GetByNguoiDung(QLTPConnection connection, decimal nguoiDungID, string appVersion, Guid? userVersion)
         {
             return _cache.GetByKey(
                 getDataSource: () =>
                 {
                     using (var context = _contextFactory.GetContext(connection))
                     {
-                        return context.RefreshToken.Where(x => x.NGUOI_DUNG_ID == NguoiDungID).ToList();
+                        return context.RefreshToken.Where(x => x.NGUOI_DUNG_ID == nguoiDungID
+                        && x.APP_VERSION == appVersion
+                        && x.USER_VERSION == userVersion
+                        && x.EXPERIED_DATE >= DateTime.Now
+                        ).ToList();
                     }
                 },
-                key: _cache.BuildCachedKey("RefreshToken", "GetByNguoiDung", NguoiDungID)
+                key: _cache.BuildCachedKey("RefreshToken", "GetByNguoiDung", nguoiDungID, appVersion)
                 );
         }
+        #endregion
+        #region SET
         public ResultEntity Insert(QLTPConnection connection, RefreshToken model)
         {
             ResultEntity res = new ResultEntity();
@@ -57,5 +64,6 @@ namespace DataAccess.SQL.QLTP.Repository
             }
             return res;
         }
+        #endregion
     }
 }

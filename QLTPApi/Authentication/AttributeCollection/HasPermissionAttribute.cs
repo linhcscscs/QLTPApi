@@ -37,10 +37,10 @@ namespace QLTPApi.Authentication.AttributeCollection
                 // Expired_Token
                 if (authContext?.Sys_Token_Infomation.IsAuthenticated == true)
                 {
-                    context.Result = ControllerHelper.ReturnCode(EReturnCode.Expired_Token);
+                    context.Result = ControllerHelper.ReturnCode(ErrorCode.Expired_Token);
                     return;
                 }
-                context.Result = ControllerHelper.ReturnCode(EReturnCode.Invalid_Token);
+                context.Result = ControllerHelper.ReturnCode(ErrorCode.Invalid_Token);
                 return;
             }
 
@@ -81,7 +81,7 @@ namespace QLTPApi.Authentication.AttributeCollection
             }
             if (!hasPermission)
             {
-                context.Result = ControllerHelper.ReturnCode(EReturnCode.Forbidden);
+                context.Result = ControllerHelper.ReturnCode(ErrorCode.Forbidden);
                 return;
             }
         }

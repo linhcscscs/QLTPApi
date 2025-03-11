@@ -10,22 +10,22 @@ namespace DataAccess.Helper.ControllerHelper.Models
 {
     public class ReturnCode
     {
-        private EReturnCode? _eReturnCode;
+        private ErrorCode? _eErrorCode;
         private string? _errorCode = null;
         private string? _errorMsg = null;
         private bool? _isSuccess = null;
-        public ReturnCode(EReturnCode returnCode)
+        public ReturnCode(ErrorCode returnCode)
         {
-            _eReturnCode = returnCode;
+            _eErrorCode = returnCode;
         }
         public ReturnCode(bool isSuccess = true) {
             _isSuccess = isSuccess;
         }
-        public EReturnCode? EReturnCode
+        public ErrorCode? errorCode
         {
             set
             {
-                _eReturnCode = value;
+                _eErrorCode = value;
             }
         }
 
@@ -33,14 +33,14 @@ namespace DataAccess.Helper.ControllerHelper.Models
         {
             get
             {
-                return _eReturnCode == null && string.IsNullOrEmpty(ErrorCode) && _isSuccess != true;
+                return _eErrorCode == null && string.IsNullOrEmpty(ErrorCode) && _isSuccess != true;
             }
         }
         public string ErrorCode
         {
             get
             {
-                return _errorCode ?? _eReturnCode?.ToString() ?? "";
+                return _errorCode ?? _eErrorCode?.ToString() ?? "";
             }
             set
             {
@@ -51,14 +51,14 @@ namespace DataAccess.Helper.ControllerHelper.Models
         {
             get
             {
-                return _errorMsg ?? _eReturnCode?.GetDescription() ?? "";
+                return _errorMsg ?? _eErrorCode?.GetDescription() ?? "";
             }
             set
             {
                 _errorMsg = value;
             }
         }
-        public int StatusCode => Success ? 200 : _eReturnCode?.GetStatusCode() ?? 500;
+        public int StatusCode => Success ? 200 : _eErrorCode?.GetStatusCode() ?? 500;
         public object Data { get; set; }
     }
 }

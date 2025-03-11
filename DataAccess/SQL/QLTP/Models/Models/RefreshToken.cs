@@ -13,6 +13,8 @@ public partial class RefreshToken
     [Key]
     public long ID { get; set; }
 
+    public string TOKEN { get; set; } = null!;
+
     [Column(TypeName = "numeric(18, 0)")]
     public decimal NGUOI_DUNG_ID { get; set; }
 
@@ -34,4 +36,6 @@ public partial class RefreshToken
 
     [Column(TypeName = "datetime")]
     public DateTime EXPERIED_DATE { get; set; }
+
+    public Guid? USER_VERSION { get; set; }
 }

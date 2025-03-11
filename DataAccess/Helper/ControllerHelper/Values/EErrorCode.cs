@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Helper.ControllerHelper.Values
 {
-    public enum EReturnCode
+    public enum ErrorCode
     {
         #region System
         [Description("Lỗi không xác định"), StatusCode(500)]
