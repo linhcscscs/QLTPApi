@@ -32,11 +32,11 @@ namespace DataAccess.SQL.QLTP.Context
         {
             var opt = new DbContextOptions<QUAN_LY_THU_PHI_2025Context>();
             var context = new QUAN_LY_THU_PHI_2025Context(opt);
+            context.Database.SetConnectionString(GetReadWriteConnectionString(connection));
             // AutoDetectChangesEnabled = false
             context.ChangeTracker.AutoDetectChangesEnabled = isWriteEntity;
             // ProxyCreationEnabled = false
             context.ChangeTracker.LazyLoadingEnabled = false;
-            context.Database.SetConnectionString(GetReadWriteConnectionString(connection));
             return context;
         }
     }

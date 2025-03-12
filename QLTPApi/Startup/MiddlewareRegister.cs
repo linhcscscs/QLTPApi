@@ -1,18 +1,15 @@
 ﻿using DataAccess.Helper.StartupHelper;
 using Microsoft.AspNetCore.Authentication;
+using QLTPApi.Controllers.BaseController.ExceptionHandle;
 
 namespace QLTPApi.Startup
 {
-    public class MiddlewareRegister : IBaseStartup
+    public class MiddlewareRegister : IBaseAppStartup
     {
-        public void Configure(IServiceCollection services)
+        public void Configure(WebApplication app)
         {
-        }
-
-        public void Configure(IApplicationBuilder app)
-        {
-            #region JWT & Authen
-            //app.UseMiddleware<AuthenticationMiddleware>();
+            #region Exception Handle
+            app.UseMiddleware<ExceptionHandleMiddleware>();
             #endregion
         }
     }

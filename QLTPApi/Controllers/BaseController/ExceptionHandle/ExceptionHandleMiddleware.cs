@@ -28,7 +28,7 @@ namespace QLTPApi.Controllers.BaseController.ExceptionHandle
                 HandleExceptionAsync(context, ex);
                 var response = ControllerHelper.ReturnCode(ErrorCode.Internal_Error_Exception);
                 var jsonResponse = JsonSerializer.Serialize(response.Value);
-                await context.Response.WriteAsync(jsonResponse);
+                await context.Response.WriteAsJsonAsync(jsonResponse);
             }
         }
 

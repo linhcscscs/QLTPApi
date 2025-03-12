@@ -10,12 +10,12 @@ namespace DataAccess.Helper.ConfigHelper
     {
         public static class JWTSettings
         {
-            public static string Secret => GetConfigByName("JWT:Secret");
-            public static double TokenValidityInMinutes => double.Parse(GetConfigByName("JWT:TokenValidityInMinutes"));
-            public static double RefreshTokenValidityInMinutes => double.Parse(GetConfigByName("JWT:RefreshTokenValidityInMinutes"));
-            public static double RefreshTokenValidityInDays => double.Parse(GetConfigByName("JWT:RefreshTokenValidityInDays"));
-            public static string ValidAudience => GetConfigByName("JWT:ValidAudience");
-            public static string ValidIssuer => GetConfigByName("JWT:ValidIssuer");
+            public static string Secret => GetConfigByName("JWTSettings:Secret");
+            public static double TokenValidityInMinutes => double.Parse(GetConfigByName("JWTSettings:TokenValidityInMinutes"));
+            public static double RefreshTokenValidityInMinutes => double.Parse(GetConfigByName("JWTSettings:RefreshTokenValidityInMinutes"));
+            public static double RefreshTokenValidityInDays => double.Parse(GetConfigByName("JWTSettings:RefreshTokenValidityInDays"));
+            public static string ValidAudience => GetConfigByName("JWTSettings:ValidAudience");
+            public static string ValidIssuer => GetConfigByName("JWTSettings:ValidIssuer");
         }
     }
 }

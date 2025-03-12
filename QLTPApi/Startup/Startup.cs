@@ -1,12 +1,8 @@
 ﻿
 using DataAccess.Helper.StartupHelper;
-using DataAccess.Helper.ConfigHelper;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using static DataAccess.Helper.ConfigHelper.ConfigHelper;
-using System.Text;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using QLTPApi.Authentication;
@@ -15,10 +11,18 @@ using DataAccess.Helper.AuthHelper;
 
 namespace QLTPApi.Startup
 {
-    public class Startup : IBaseStartup
+    public class Startup : IBaseServiceStartup, IBaseAppStartup, IBaseConfigStartup
     {
+
+        public void Configure(IConfiguration configuration)
+        {
+        }
         public void Configure(IServiceCollection services)
         {
+            #region HttpContextAccessor
+            services.AddHttpContextAccessor();
+            #endregion
+
             #region Core Configure
             #region Compression
             services.AddResponseCompression(options =>
@@ -52,8 +56,11 @@ namespace QLTPApi.Startup
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = AuthHelper.GetTokenValidationParameters();
             });
+            #endregion
 
+            #region Swagger + OpenApi
             // Swagger JWT config
+            services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -88,6 +95,8 @@ namespace QLTPApi.Startup
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             });
+
+            services.AddOpenApi();
             #endregion
 
             #region Lazy DI
@@ -108,9 +117,14 @@ namespace QLTPApi.Startup
             #endregion
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(WebApplication app)
         {
-
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using DataAccess.Helper.ConfigHelper;
 using DataAccess.Helper.StartupHelper;
+using Microsoft.Identity.Client;
 using Serilog;
 using System.Reflection;
 
@@ -8,8 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add builder.Services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
 
 #region Create Configuration
 IConfiguration config = new ConfigurationBuilder()
@@ -18,75 +18,84 @@ IConfiguration config = new ConfigurationBuilder()
                           .AddEnvironmentVariables()
                           .Build();
 #endregion
-#region Get Base Startup + Base Config
+#region Get Assembly
 var referencedAssemblies = Assembly.GetExecutingAssembly()
-    .GetReferencedAssemblies()
-    .Select(Assembly.Load);
-var startupAssemblies = new List<Assembly>();
-var configtartupAssemblies = new List<Assembly>();
-foreach (var assembly in referencedAssemblies)
+.GetReferencedAssemblies()
+.Select(Assembly.Load);
+var currentAssemblies = Assembly.GetExecutingAssembly();
+var assemblies = new List<Assembly>();
+assemblies.AddRange(currentAssemblies);
+assemblies.AddRange(referencedAssemblies);
+#endregion
+#region Set up service + config
 {
-    var hasStartup = assembly.GetTypes()
-        .Any(type => typeof(IBaseStartup).IsAssignableFrom(type)
-                     && !type.IsInterface
-                     && !type.IsAbstract);
-
-    var hasConfigStartup = assembly.GetTypes()
-        .Any(type => typeof(IBaseConfigStartup).IsAssignableFrom(type)
-                     && !type.IsInterface
-                     && !type.IsAbstract);
-
-    if (hasStartup)
+    #region Get Base Startup + Base Config
+    var startupAssemblies = new List<Assembly>();
+    var configtartupAssemblies = new List<Assembly>();
+    foreach (var assembly in assemblies)
     {
-        startupAssemblies.Add(assembly);
-    }
+        var hasStartup = assembly.GetTypes()
+            .Any(type => typeof(IBaseServiceStartup).IsAssignableFrom(type)
+                         && !type.IsInterface
+                         && !type.IsAbstract);
 
-    if (hasConfigStartup)
-    {
-        configtartupAssemblies.Add(assembly);
-    }
-}
-var configStartupClasses = configtartupAssemblies
-.SelectMany(assembly => assembly.GetTypes())
-.Where(type => typeof(IBaseConfigStartup).IsAssignableFrom(type)
-               && !type.IsInterface
-               && !type.IsAbstract)
-.ToList();
+        var hasConfigStartup = assembly.GetTypes()
+            .Any(type => typeof(IBaseConfigStartup).IsAssignableFrom(type)
+                         && !type.IsInterface
+                         && !type.IsAbstract);
 
-var startupClasses = startupAssemblies
+        if (hasStartup)
+        {
+            startupAssemblies.Add(assembly);
+        }
+
+        if (hasConfigStartup)
+        {
+            configtartupAssemblies.Add(assembly);
+        }
+    }
+    var configStartupClasses = configtartupAssemblies
     .SelectMany(assembly => assembly.GetTypes())
-    .Where(type => typeof(IBaseStartup).IsAssignableFrom(type)
+    .Where(type => typeof(IBaseConfigStartup).IsAssignableFrom(type)
                    && !type.IsInterface
                    && !type.IsAbstract)
     .ToList();
-#endregion
-#region Run IBaseConfigStartup
-{
-    foreach (var configStartupClass in configStartupClasses)
-    {
-        try
-        {
-            var instance = (IBaseConfigStartup)Activator.CreateInstance(configStartupClass)!;
-            instance.Configure(config);
-        }
-        catch { }
-    }
-}
-#endregion
-#region Run IBaseStartup
-{
-    foreach (var startupClass in startupClasses)
-    {
-        try
-        {
-            var instance = (IBaseStartup)Activator.CreateInstance(startupClass)!;
-            instance.Configure(builder.Services);
-        }
-        catch { }
-    }
-}
-#endregion
 
+    var startupClasses = startupAssemblies
+        .SelectMany(assembly => assembly.GetTypes())
+        .Where(type => typeof(IBaseServiceStartup).IsAssignableFrom(type)
+                       && !type.IsInterface
+                       && !type.IsAbstract)
+        .ToList();
+    #endregion
+    #region Run IBaseConfigStartup
+    {
+        foreach (var configStartupClass in configStartupClasses)
+        {
+            try
+            {
+                var instance = (IBaseConfigStartup)Activator.CreateInstance(configStartupClass)!;
+                instance.Configure(config);
+            }
+            catch { }
+        }
+    }
+    #endregion
+    #region Run IBaseServiceStartup
+    {
+        foreach (var startupClass in startupClasses)
+        {
+            try
+            {
+                var instance = (IBaseServiceStartup)Activator.CreateInstance(startupClass)!;
+                instance.Configure(builder.Services);
+            }
+            catch { }
+        }
+    }
+    #endregion
+}
+#endregion
 #region CORS
 var lstCors = ConfigHelper.AppSettings.CORS;
 if (lstCors.Count() > 0)
@@ -138,20 +147,36 @@ else
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+#region Get Base App Startup
 {
-    app.MapOpenApi();
-}
-#region Run IBaseStartup
-foreach (var startupClass in startupClasses)
-{
-    try
+    var startupAssemblies = new List<Assembly>();
+    foreach (var assembly in assemblies)
     {
-        var instance = (IBaseStartup)Activator.CreateInstance(startupClass)!;
-        instance.Configure(app);
+        var hasStartup = assembly.GetTypes()
+            .Any(type => typeof(IBaseAppStartup).IsAssignableFrom(type)
+                         && !type.IsInterface
+                         && !type.IsAbstract);
+
+        if (hasStartup)
+        {
+            startupAssemblies.Add(assembly);
+        }
     }
-    catch { }
+    var startupClasses = startupAssemblies
+        .SelectMany(assembly => assembly.GetTypes())
+        .Where(type => typeof(IBaseAppStartup).IsAssignableFrom(type)
+                       && !type.IsInterface
+                       && !type.IsAbstract)
+        .ToList();
+    foreach (var startupClass in startupClasses)
+    {
+        try
+        {
+            var instance = (IBaseAppStartup)Activator.CreateInstance(startupClass)!;
+            instance.Configure(app);
+        }
+        catch { }
+    }
 }
 #endregion
 

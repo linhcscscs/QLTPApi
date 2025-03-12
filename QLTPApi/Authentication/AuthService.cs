@@ -44,7 +44,7 @@ namespace QLTPApi.Authentication
         {
             var ret = new ReturnCode();
             var hashedPassword = AuthHelper.MD5(model.PASSWORD);
-            var nguoiDung = _nguoiDungRepository.getLoginTruong(_authContext.QLTPWorkingConnection, model.USERNAME, model.PASSWORD, model.MA_SO_GD, model.MA_TRUONG, SysCapDonVi.Truong);
+            var nguoiDung = _nguoiDungRepository.getLoginTruong(_authContext.QLTPWorkingConnection, model.USERNAME, hashedPassword, model.MA_SO_GD, model.MA_TRUONG, SysCapDonVi.Truong);
             var truong = _truongRepository.getByMaBasic(_authContext.QLTPWorkingConnection, _authContext.Sys_Profile.SysTem_Nam_Hoc, model.MA_TRUONG);
             if (nguoiDung == null || truong == null)
             {
@@ -62,7 +62,8 @@ namespace QLTPApi.Authentication
                 MA_CAP_HOC = model.MA_CAP_HOC,
                 MA_SO_GD = model.MA_SO_GD,
                 ID_TRUONG = truong.ID,
-                MA_TRUONG = truong.MA
+                MA_TRUONG = truong.MA,
+                REMEMBER = model.REMEMBER
             });
             #endregion
             return ret;
@@ -105,6 +106,7 @@ namespace QLTPApi.Authentication
                 MA_SO_GD = refreshToken.MA_SO_GD ?? "",
                 ID_TRUONG = truong.ID,
                 MA_TRUONG = truong.MA,
+                REMEMBER = true
             });
             return ret;
         }
@@ -161,7 +163,9 @@ namespace QLTPApi.Authentication
                 MA_NAM_HOC = model.MA_NAM_HOC,
                 MA_SO_GD = model.MA_SO_GD,
                 MA_TRUONG = model.MA_TRUONG,
-                NGUOI_DUNG_ID = model.NGUOI_DUNG_ID
+                NGUOI_DUNG_ID = model.NGUOI_DUNG_ID,
+                USER_VERSION = model.USER_VERSION,
+                TOKEN = token,
             };
             var res = _refreshTokenRepository.Insert(_authContext.QLTPWorkingConnection, refreshToken);
             if (!res.Res)

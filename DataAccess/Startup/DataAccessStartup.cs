@@ -8,10 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using StackExchange.Redis;
+using System.Reflection;
 
 namespace DataAccess.Startup
 {
-    public class DataAccessStartup : IBaseStartup, IBaseConfigStartup
+    public class DataAccessStartup : IBaseServiceStartup, IBaseConfigStartup, IBaseAppStartup
     {
         public void Configure(IConfiguration configuration)
         {
@@ -38,10 +39,13 @@ namespace DataAccess.Startup
             else
                 services.AddSingleton<ICacheProvider, MemCacheProvider>();
             #endregion
+            #region Mapper
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            #endregion
             #endregion
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(WebApplication app)
         {
         }
     }

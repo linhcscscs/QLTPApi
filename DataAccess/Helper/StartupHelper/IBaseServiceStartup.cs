@@ -5,9 +5,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace DataAccess.Helper.StartupHelper
 {
-    public interface IBaseStartup
+    public interface IBaseServiceStartup
     {
         void Configure(IServiceCollection services);
-        void Configure(IApplicationBuilder app);
     }
 }

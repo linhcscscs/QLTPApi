@@ -20,7 +20,7 @@ namespace DataAccess.Entities
             Msg = msg;
         }
 
-        public bool Res { get; set; }
+        public bool Res { get; set; } = true;
         public string Msg { get; set; }
         public object ResObject { get; set; }
         public string hoTen { get; set; }

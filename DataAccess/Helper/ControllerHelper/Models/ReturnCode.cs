@@ -22,7 +22,7 @@ namespace DataAccess.Helper.ControllerHelper.Models
         {
             get
             {
-                return _errorCode == null && string.IsNullOrEmpty(ErrorCode) && _isSuccess != true;
+                return (_errorCode == null && string.IsNullOrEmpty(ErrorCode)) || _isSuccess == false;
             }
         }
         public string ErrorCode

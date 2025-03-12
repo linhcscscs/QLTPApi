@@ -27,7 +27,7 @@ namespace QLTPApi.Authentication
     public class AuthContext : IAuthContext
     {
         #region Contructor
-        public AuthContext(HttpContext httpContext,
+        public AuthContext(IHttpContextAccessor httpContextAccessor,
             Lazy<INguoiDungRepository> nguoiDungRepository,
             Lazy<INhanSuRepository> nhanSuRepository,
             Lazy<ITruongRepository> truongRepository,
@@ -37,7 +37,7 @@ namespace QLTPApi.Authentication
             Lazy<IGroupUserRepository> groupUserRepository,
             Lazy<IGroupUserMenuRepository> groupUserMenuRepository)
         {
-            _httpContext = httpContext;
+            _httpContextAccessor = httpContextAccessor;
             _nguoiDungRepository = nguoiDungRepository;
             _nhanSuRepository = nhanSuRepository;
             _truongRepository = truongRepository;
@@ -55,7 +55,7 @@ namespace QLTPApi.Authentication
         private readonly Lazy<IMenuRepository> _menuRepository;
         private readonly Lazy<IGroupUserRepository> _groupUserRepository;
         private readonly Lazy<IGroupUserMenuRepository> _groupUserMenuRepository;
-        private HttpContext _httpContext;
+        private IHttpContextAccessor _httpContextAccessor;
         private SYS_Profile? _Sys_Profile = null;
         #endregion
         #region Props
@@ -76,7 +76,7 @@ namespace QLTPApi.Authentication
             {
                 if (_Sys_Profile == null)
                 {
-                    var isAuthen = _httpContext.User?.Identity?.IsAuthenticated ?? false;
+                    var isAuthen = _httpContextAccessor?.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
                     if (!isAuthen)
                     {
                         _Sys_Profile = new SYS_Profile()
@@ -85,7 +85,7 @@ namespace QLTPApi.Authentication
                         };
                         return _Sys_Profile;
                     }
-                    var user = _httpContext.User!;
+                    var user = _httpContextAccessor?.HttpContext?.User!;
                     // Check app Version
                     var appVersion = user.GetByClaim(UserClaimKey.APP_VERSION);
                     if (appVersion != ConfigHelper.AppSettings.VERSION)
@@ -207,7 +207,7 @@ namespace QLTPApi.Authentication
                     {
                         return null;
                     }
-                    var path = _httpContext.Request.Path.Value ?? "";
+                    var path = _httpContextAccessor?.HttpContext?.Request.Path.Value ?? "";
                     _Sys_Menu = _menuRepository.Value.getByLink(QLTPWorkingConnection, path.Substring(0, path.LastIndexOf("/"))).FirstOrDefault();
                 }
                 return _Sys_Menu;
@@ -250,7 +250,7 @@ namespace QLTPApi.Authentication
             {
                 if (_Sys_Token_Infomation == null)
                 {
-                    var jwt = _httpContext.GetAccessTokenFromHeader();
+                    var jwt = _httpContextAccessor?.HttpContext?.GetAccessTokenFromHeader();
                     if (string.IsNullOrEmpty(jwt) || AuthHelper.ValidJwt(jwt, out var user))
                     {
                         _Sys_Token_Infomation = new SYS_Profile() { IsAuthenticated = false };

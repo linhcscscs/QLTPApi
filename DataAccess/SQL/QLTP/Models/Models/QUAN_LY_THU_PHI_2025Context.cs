@@ -8,6 +8,9 @@ namespace DataAccess.SQL.QLTP.Models;
 
 public partial class QUAN_LY_THU_PHI_2025Context : DbContext
 {
+    public QUAN_LY_THU_PHI_2025Context()
+    {
+    }
     public QUAN_LY_THU_PHI_2025Context(DbContextOptions<QUAN_LY_THU_PHI_2025Context> options)
         : base(options)
     {

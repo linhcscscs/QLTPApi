@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging;
 using QLTPApi.Authentication;
 using QLTPApi.Authentication.Models;
 
-namespace QLTPApi.Controllers
+namespace QLTPApi.Controllers.Authenticate
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
